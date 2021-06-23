@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   creationTimestamp: null
-  name: scm
+  name: welcome-pipeline
   annotations:
     argocd.argoproj.io/sync-wave: "0"
 spec: {}
@@ -24,13 +24,14 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: default
-  namespace: scm
+  namespace: welcome-pipeline
 ---
 # Source: gitea/charts/memcached/templates/secrets.yaml
 apiVersion: v1
 kind: Secret
 metadata:
   name: gitea-memcached
+  namespace: welcome-pipeline
   labels:
     app.kubernetes.io/name: memcached
     app.kubernetes.io/instance: gitea
@@ -45,6 +46,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: gitea-postgresql
+  namespace: welcome-pipeline
   labels:
     app.kubernetes.io/name: postgresql
     app.kubernetes.io/instance: gitea
@@ -59,6 +61,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: gitea
+  namespace: welcome-pipeline
   labels:
     app: gitea
     app.kubernetes.io/name: gitea
@@ -108,6 +111,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: gitea-init
+  namespace: welcome-pipeline
   labels:
     app: gitea
     app.kubernetes.io/name: gitea
@@ -152,6 +156,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: gitea-memcached
+  namespace: welcome-pipeline
   labels:
     app.kubernetes.io/name: memcached
     app.kubernetes.io/instance: gitea
@@ -173,6 +178,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: gitea-postgresql-headless
+  namespace: welcome-pipeline
   labels:
     app.kubernetes.io/name: postgresql
     app.kubernetes.io/instance: gitea
@@ -194,6 +200,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: gitea-postgresql
+  namespace: welcome-pipeline
   labels:
     app.kubernetes.io/name: postgresql
     app.kubernetes.io/instance: gitea
@@ -215,6 +222,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: gitea-http
+  namespace: welcome-pipeline
   labels:
     app: gitea
     app.kubernetes.io/name: gitea
@@ -239,6 +247,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: gitea-ssh
+  namespace: welcome-pipeline
   labels:
     app: gitea
     app.kubernetes.io/name: gitea
@@ -264,6 +273,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gitea-memcached
+  namespace: welcome-pipeline
   labels:
     app.kubernetes.io/name: memcached
     app.kubernetes.io/instance: gitea
@@ -334,6 +344,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: gitea-postgresql
+  namespace: welcome-pipeline
   labels:
     app.kubernetes.io/name: postgresql
     app.kubernetes.io/instance: gitea
@@ -457,6 +468,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: gitea
+  namespace: welcome-pipeline
   labels:
     app: gitea
     app.kubernetes.io/name: gitea
@@ -598,6 +610,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "5"
   name: gitea-http
+  namespace: welcome-pipeline
 spec:
   port:
     targetPort: http
@@ -611,6 +624,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: "gitea-test-connection"
+  namespace: welcome-pipeline
   labels:
     app: gitea
     app.kubernetes.io/name: gitea
@@ -638,6 +652,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: "gitea-bootstrap"
+  namespace: welcome-pipeline
   labels:
     app: gitea
     app.kubernetes.io/name: gitea

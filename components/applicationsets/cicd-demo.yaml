@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cicd-demo
+  namespace: openshift-gitops
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/RedHatWorkshops/openshift-cicd-demo
+      revision: main
+      directories:
+      - path: tenants/cicd-demo/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+      source:
+        repoURL: https://github.com/RedHatWorkshops/openshift-cicd-demo
+        targetRevision: main
+        path: '{{path}}'
+      destination:
+        server: https://api.cluster1.chx.osecloud.com:6443
+#        namespace: pricelist

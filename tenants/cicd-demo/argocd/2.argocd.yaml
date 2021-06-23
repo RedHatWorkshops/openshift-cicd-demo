@@ -3,6 +3,8 @@ kind: ArgoCD
 metadata:
   name: welcome-argocd
   namespace: welcome-pipeline
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   applicationSet: {}
   controller:

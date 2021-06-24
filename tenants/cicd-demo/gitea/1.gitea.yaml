@@ -5,6 +5,7 @@ metadata:
   creationTimestamp: null
   name: welcome-pipeline
   annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
     argocd.argoproj.io/sync-wave: "0"
 spec: {}
 status: {}

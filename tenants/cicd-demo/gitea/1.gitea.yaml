@@ -682,17 +682,26 @@ spec:
                 http://gitea-http:3000/api/v1/admin/users
               
               #
-              ## Migrage repo for developer
+              ## Migrage welcome-app repo for developer
               curl -s \
                 --header "Content-Type: application/json" \
                 -u gitea-admin:openshift \
                 --request POST \
-                -d '{"clone_addr":"https://github.com/christianh814/gitops-examples","description":"","issues":false,"milestones":false,"mirror":false,"private":false,"repo_name":"gitops-examples","uid":2}' \
+                -d '{"clone_addr":"https://github.com/RedHatWorkshops/welcome-app","description":"","issues":false,"milestones":false,"mirror":false,"private":false,"repo_name":"welcome-app","uid":2}' \
+              	  http://gitea-http:3000/api/v1/repos/migrate
+              
+              #
+              ## Migrage welcome-deploy repo for developer
+              curl -s \
+                --header "Content-Type: application/json" \
+                -u gitea-admin:openshift \
+                --request POST \
+                -d '{"clone_addr":"https://github.com/RedHatWorkshops/welcome-deploy","description":"","issues":false,"milestones":false,"mirror":false,"private":false,"repo_name":"welcome-deploy","uid":2}' \
               	  http://gitea-http:3000/api/v1/repos/migrate
               
               #
               ## Create hook if needbe
-              if [[ $(curl -s -o /dev/null -w "%{http_code}" --header "Content-Type: application/json" --request GET -u gitea-admin:openshift http://gitea-http:3000/api/v1/repos/developer/gitops-examples/hooks/1) -eq 200 ]]; then
+              if [[ $(curl -s -o /dev/null -w "%{http_code}" --header "Content-Type: application/json" --request GET -u gitea-admin:openshift http://gitea-http:3000/api/v1/repos/developer/welcome-app/hooks/1) -eq 200 ]]; then
               	#
               	## Already created
               	echo "Hook already created...skipping"
@@ -702,7 +711,7 @@ spec:
               	  -u developer:openshift \
               	  --request POST \
               	  -d '{"active":true,"branch_filter":"master","config":{"content_type":"json","url":"http://repositories/2222","http_method":"post"},"events":["push"],"type":"gitea"}' \
-              	  http://gitea-http:3000/api/v1/repos/developer/gitops-examples/hooks
+              	  http://gitea-http:3000/api/v1/repos/developer/welcome-app/hooks
               fi
       restartPolicy: Never
 ...

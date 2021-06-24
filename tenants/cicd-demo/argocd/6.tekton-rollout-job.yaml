@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+  name: tkn-wait-job
+  namespace: welcome-pipeline
+spec:
+  template:
+    spec:
+      containers:
+        - image: registry.redhat.io/openshift4/ose-cli:v4.7
+          command:
+            - /bin/bash
+            - -c
+            - |
+              export HOME=/tmp/tkn
+              echo ""
+              echo -n "Waiting for pipelines CRDs to finish installing"
+              sleep $SLEEP
+              until oc wait --for condition=established --timeout=60s crd/pipelines.tekton.dev -n scm
+              do
+                echo -n "."
+                sleep $SLEEP
+              done
+              echo -e "DONE\n"
+          imagePullPolicy: Always
+          name: tkn-wait-container
+          env:
+          - name: SLEEP
+            value: "5"
+      restartPolicy: OnFailure
+      serviceAccount: cli-job-sa
+      serviceAccountName: cli-job-sa
+      terminationGracePeriodSeconds: 30

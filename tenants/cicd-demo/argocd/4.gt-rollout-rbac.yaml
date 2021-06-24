@@ -7,10 +7,12 @@ metadata:
 rules:
   - apiGroups:
       - batch
+      - tekton.dev
       - apiextensions.k8s.io
     resources:
       - jobs
       - customresourcedefinitions
+      - pipelines
     verbs:
       - get
       - list

@@ -4,6 +4,7 @@ metadata:
   name: openshift-gitops
   namespace: openshift-gitops
 spec:
+  applicationSet: {}
   resourceCustomizations: |
     bitnami.com/SealedSecret:
       health.lua: |

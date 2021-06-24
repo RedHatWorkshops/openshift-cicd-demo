@@ -3,7 +3,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   creationTimestamp: null
-  name: admin
+  name: admin-welcome-dev
   namespace: welcome-dev
   annotations:
     argocd.argoproj.io/sync-wave: "2"
@@ -20,7 +20,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   creationTimestamp: null
-  name: admin
+  name: admin-welcome-gitops
   namespace: welcome-gitops
   annotations:
     argocd.argoproj.io/sync-wave: "2"
@@ -37,7 +37,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   creationTimestamp: null
-  name: admin
+  name: admin-welcome-pipelines
   namespace: welcome-pipelines
   annotations:
     argocd.argoproj.io/sync-wave: "2"
@@ -54,7 +54,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   creationTimestamp: null
-  name: admin
+  name: admin-welcome-prod
   namespace: welcome-prod
   annotations:
     argocd.argoproj.io/sync-wave: "2"

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   creationTimestamp: null
-  name: welcome-pipeline
+  name: welcome-gitops
   annotations:
     argocd.argoproj.io/sync-wave: "0"
 spec: {}

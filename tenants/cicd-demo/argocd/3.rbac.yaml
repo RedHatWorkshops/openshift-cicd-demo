@@ -3,7 +3,7 @@ kind: RoleBinding
 metadata:
   creationTimestamp: null
   name: admin
-  namespace: welcome-pipeline
+  namespace: welcome-gitops
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 roleRef:
@@ -13,4 +13,4 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: welcome-argocd-argocd-application-controller
-  namespace: welcome-pipeline
+  namespace: welcome-gitops

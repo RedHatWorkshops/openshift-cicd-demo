@@ -4,7 +4,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "4"
   name: gt-wait-job
-  namespace: welcome-pipeline
+  namespace: welcome-gitops
 spec:
   template:
     spec:

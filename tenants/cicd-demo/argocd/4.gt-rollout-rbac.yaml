@@ -30,4 +30,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: cli-job-sa
-    namespace: welcome-pipeline
+    namespace: welcome-gitops

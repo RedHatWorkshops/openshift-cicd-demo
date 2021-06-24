@@ -3,6 +3,6 @@ kind: ServiceAccount
 metadata:
   creationTimestamp: null
   name: cli-job-sa
-  namespace: welcome-pipeline
+  namespace: welcome-gitops
   annotations:
     argocd.argoproj.io/sync-wave: "2"

@@ -21,7 +21,7 @@ kind: RoleBinding
 metadata:
   creationTimestamp: null
   name: admin
-  namespace: welcome-pipelines
+  namespace: welcome-pipeline
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 roleRef:

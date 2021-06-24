@@ -37,8 +37,8 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   creationTimestamp: null
-  name: admin-welcome-pipelines
-  namespace: welcome-pipelines
+  name: admin-welcome-pipeline
+  namespace: welcome-pipeline
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 roleRef:

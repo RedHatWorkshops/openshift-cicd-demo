@@ -1,0 +1,3 @@
+resources:
+- welcome-dev.yaml
+- welcome-prod.yaml

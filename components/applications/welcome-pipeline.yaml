@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: welcome-pipeline
+  namespace: welcome-gitops
+  annotations:
+    argocd.argoproj.io/sync-wave: "9"
+spec:
+  project: default
+  source:
+    path: components/tekton
+    repoURL: http://gitea-http.scm.svc.cluster.local:3000/developer/welcome-deploy
+    targetRevision: main
+  destination:
+    namespace: welcome-pipeline
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

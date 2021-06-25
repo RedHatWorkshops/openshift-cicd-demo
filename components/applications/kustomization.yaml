@@ -1,3 +1,4 @@
 resources:
 - welcome-dev.yaml
 - welcome-prod.yaml
+- welcome-pipeline.yaml

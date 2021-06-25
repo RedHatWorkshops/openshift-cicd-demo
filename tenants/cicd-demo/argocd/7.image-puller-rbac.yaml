@@ -3,7 +3,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   creationTimestamp: null
-  name: system:image-puller
+  name: system:image-puller:welcome-dev
   namespace: welcome-pipeline
   annotations:
     argocd.argoproj.io/sync-wave: "5"
@@ -20,7 +20,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   creationTimestamp: null
-  name: system:image-puller
+  name: system:image-puller:welcome-prod
   namespace: welcome-pipeline
   annotations:
     argocd.argoproj.io/sync-wave: "5"

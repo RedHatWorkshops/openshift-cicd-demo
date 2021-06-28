@@ -10,3 +10,4 @@ resources:
 - 5.gt-rollout-job.yaml
 - 6.tekton-rollout-job.yaml
 - 7.image-puller-rbac.yaml
+- 8.welcome-prepull-job.yaml

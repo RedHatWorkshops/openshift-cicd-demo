@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
+  name: welcome-image-prepull
+  namespace: welcome-gitops
+spec:
+  template:
+    spec:
+      containers:
+        - image: registry.redhat.io/openshift4/ose-cli:v4.7
+          command:
+            - /bin/bash
+            - -c
+            - |
+              export HOME=/tmp/pull
+              echo ""
+              echo "Prepulling welcome image"
+              echo "========================"
+              sleep $SLEEP
+              oc import-image welcome-app --from=quay.io/redhatworkshops/welcome-app:latest --confirm -n welcome-pipeline
+              echo "========================"
+          imagePullPolicy: Always
+          name: welcome-image-pull-container
+          env:
+          - name: SLEEP
+            value: "5"
+      restartPolicy: OnFailure
+      serviceAccount: welcome-argocd-argocd-application-controller
+      serviceAccountName: welcome-argocd-argocd-application-controller
+      terminationGracePeriodSeconds: 30

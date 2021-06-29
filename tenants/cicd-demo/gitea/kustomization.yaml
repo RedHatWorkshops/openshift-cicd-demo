@@ -7,6 +7,7 @@ resources:
 - 5.cli-job.yaml
 - 6.gitea.yaml
 - 7.gitea-waitfor-pod.yaml
+- 8.gitea-bootstrap.yaml
 patches:
   - target:
       version: v1alpha1

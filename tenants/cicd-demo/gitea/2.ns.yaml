@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: scm
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec: {}
+status: {}

@@ -1,0 +1,60 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "gitea-bootstrap"
+  namespace: scm
+  annotations:
+    argocd.argoproj.io/sync-wave: "8"
+    argocd.argoproj.io/hook: PostSync
+spec:
+  template:
+    spec:
+      containers:
+        - name: bootstrap-gitea
+          image: registry.access.redhat.com/ubi8/ubi-minimal:latest
+          command:
+            - /bin/bash
+            - -c
+            - |
+              #
+              ## Create developer user
+              curl -s \
+                --header "Content-Type: application/json" \
+                -u gitea-admin:openshift \
+                --request POST \
+                -d '{"email":"developer@example.com","login_name":"developer","must_change_password":false,"password":"openshift","send_notify":false,"username":"developer"}' \
+                http://gitea:3000/api/v1/admin/users
+              
+              #
+              ## Migrage welcome-app repo for developer
+              curl -s \
+                --header "Content-Type: application/json" \
+                -u gitea-admin:openshift \
+                --request POST \
+                -d '{"clone_addr":"https://github.com/RedHatWorkshops/welcome-app","description":"","issues":false,"milestones":false,"mirror":false,"private":false,"repo_name":"welcome-app","uid":2}' \
+              	  http://gitea:3000/api/v1/repos/migrate
+              
+              #
+              ## Migrage welcome-deploy repo for developer
+              curl -s \
+                --header "Content-Type: application/json" \
+                -u gitea-admin:openshift \
+                --request POST \
+                -d '{"clone_addr":"https://github.com/RedHatWorkshops/welcome-deploy","description":"","issues":false,"milestones":false,"mirror":false,"private":false,"repo_name":"welcome-deploy","uid":2}' \
+              	  http://gitea:3000/api/v1/repos/migrate
+              
+              #
+              ## Create hook if needbe
+              if [[ $(curl -s -o /dev/null -w "%{http_code}" --header "Content-Type: application/json" --request GET -u gitea-admin:openshift http://gitea:3000/api/v1/repos/developer/welcome-app/hooks/1) -eq 200 ]]; then
+              	#
+              	## Already created
+              	echo "Hook already created...skipping"
+              else
+              	curl -s \
+              	  --header "Content-Type: application/json" \
+              	  -u developer:openshift \
+              	  --request POST \
+              	  -d '{"active":true,"branch_filter":"main","config":{"content_type":"json","url":"http://el-build-listener.welcome-pipeline.svc.cluster.local:8080","http_method":"post"},"events":["push"],"type":"gitea"}' \
+              	  http://gitea:3000/api/v1/repos/developer/welcome-app/hooks
+              fi
+      restartPolicy: Never

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "gitea-waitfor-pod"
+  namespace: scm
+  annotations:
+    argocd.argoproj.io/sync-wave: "7"
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  containers:
+    - name: curl-gitea
+      image: registry.access.redhat.com/ubi8/ubi-minimal:latest
+      command:
+        - /bin/bash
+        - -c
+        - |
+          echo -n "Waiting for Gitea service"
+          until [ $(curl -s -o /dev/null -w "%{http_code}" http://gitea:3000) -eq 200 ]; do echo -n "."; sleep 15; done
+          echo -e "Online!\n"
+  restartPolicy: Never

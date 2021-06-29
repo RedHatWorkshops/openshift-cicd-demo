@@ -1,0 +1,14 @@
+apiVersion: gpte.opentlc.com/v1
+kind: Gitea
+metadata:
+  name: gitea
+  namespace: scm
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
+spec:
+  giteaAdminEmail: opentlc-mgr@redhat.com
+  giteaAdminPassword: openshift
+  giteaAdminUser: gitea-admin
+  giteaSsl: true
+  giteaVolumeSize: 4Gi
+  postgresqlVolumeSize: 4Gi

@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     path: app/overlays/dev/
-    repoURL: http://gitea-http.scm.svc.cluster.local:3000/developer/welcome-deploy
+    repoURL: http://gitea.scm.svc.cluster.local:3000/developer/welcome-deploy
     targetRevision: main
   destination:
     namespace: welcome-dev

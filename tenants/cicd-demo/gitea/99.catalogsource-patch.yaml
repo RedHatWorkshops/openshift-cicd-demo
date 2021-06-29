@@ -1,0 +1,7 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: redhat-gpte-gitea
+  namespace: openshift-marketplace
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"

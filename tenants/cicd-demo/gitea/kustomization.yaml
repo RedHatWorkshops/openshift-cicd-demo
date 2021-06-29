@@ -1,0 +1,17 @@
+resources:
+- https://raw.githubusercontent.com/redhat-gpte-devopsautomation/gitea-operator/master/catalog_source.yaml
+- 1.sub.yaml
+- 2.ns.yaml
+- 3.cli-job-sa.yaml
+- 4.cli-job-rbac.yaml
+- 5.cli-job.yaml
+- 6.gitea.yaml
+- 7.gitea-waitfor-pod.yaml
+patches:
+  - target:
+      version: v1alpha1
+      group: operators.coreos.com
+      kind: CatalogSource
+      name: redhat-gpte-gitea
+      namespace: openshift-marketplace
+    path: 99.catalogsource-patch.yaml

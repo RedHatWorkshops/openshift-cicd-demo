@@ -11,6 +11,7 @@ Once deployed, you will have the following:
 * OpenShift GitOps cluster scoped deployment installed
 * Tekton installed
 * Custom Cluster configurations
+  * This includes creating a `developer` user.
 
 The OpenShift GitOps system will then install the following:
 
@@ -44,14 +45,95 @@ kubectl apply -k https://github.com/RedHatWorkshops/openshift-cicd-demo/bootstra
 
 If you have issues, please see the [troubleshooting section](#troubeshooting)
 
+# Demo Installation
+
+Once deployed, you will need the following information.
+
+## Console
+
+Console route can be found using:
+
+```shell
+oc get route console -n openshift-console -o jsonpath='{.spec.host}{"\n"}'
+```
+
+Use the following credentials
+
+* username: `developer`
+* password: `openshift`
+
+## Tenant Argo CD
+
+The tenant Argo CD instance is running in the `welcome-gitops`
+namespace. To reach the Web UI:
+
+```shell
+oc get route welcome-argocd-server -n welcome-gitops -o jsonpath='{.spec.host}{"\n"}'
+```
+
+The password for the tenant Argo CD instance can be extracted by:
+
+```shell
+oc extract secret/welcome-argocd-cluster -n welcome-gitops --to=-
+```
+
+## GitTea
+
+The Git service route can be found by:
+
+```shell
+oc get route gitea -n scm -o jsonpath='{.spec.host}{"\n"}'
+```
+
+Use the following credentials for the demo:
+
+* username: `developer`
+* password: `openshift`
+
+You will see two repos; `welcome-app` and `welcome-deploy`. 
+
+* `welcome-app` repo is the code repo that builds the application
+* `welcome-deploy` repo is the repo with the deployment manifest.
+
+
+## Welcome App
+
+The application is deployed to two namespaces: `welcome-dev` and `welcome-prod`
+
+You can find the routes using the following:
+
+Dev
+
+```shell
+oc get route welcome-app -n welcome-dev -o jsonpath='{.spec.host}{"\n"}'
+```
+
+Prod
+
+```shell
+oc get route welcome-app -n welcome-prod -o jsonpath='{.spec.host}{"\n"}'
+```
+
+# Running the Demo
+
+Make a commit to the `index.php` file at the following URL:
+
+```shell
+echo $(oc get route gitea -n scm -o jsonpath='{.spec.host}')/developer/welcome-app
+```
+
+This should fire off a build that you can see progress in the
+`welcome-pipeline` namespace. It's probably easier to just show you, so
+watch this video:
 
 # Troubeshooting
 
-Common issues that may arise.
+Common issues that may arise are in this section in no paticular order.
 
 ## Installation
 
-You're probably always going to end up here since the install won't work "first shot". Best way to install is to run the following:
+You're probably always going to end up here since the install won't work
+"first shot". Best way to install is to run the following:
 
 ```shell
 until kubectl apply -k https://github.com/RedHatWorkshops/openshift-cicd-demo/bootstrap/overlays/base.cluster/
@@ -60,21 +142,24 @@ do
 done
 ```
 
-WORK IN PROGRESS
+## OpenShift GitOps
 
+The OpenShift GitOps installation (aka the "Cluster Argo CD) can be
+reached by the following route:
 
-Console Route: oc get route console -n openshift-console -o jsonpath='{.spec.host}{"\n"}'
+```shell
+oc get route openshift-gitops-server -n openshift-gitops -o jsonpath='{.spec.host}{"\n"}'
+```
 
-OpenShift GitOps Route: oc get route openshift-gitops-server -n openshift-gitops -o jsonpath='{.spec.host}{"\n"}'
-OpenShift GitOps Admin password: oc extract secret/openshift-gitops-cluster -n openshift-gitops --to=-
+The Admin password can be found by:
 
-Tenat GitOps Route: oc get route welcome-argocd-server -n welcome-gitops -o jsonpath='{.spec.host}{"\n"}'
-Tenat GitOps Admin password: oc extract secret/welcome-argocd-cluster -n welcome-gitops --to=-
+```shell
+oc extract secret/openshift-gitops-cluster -n openshift-gitops --to=-
+```
 
-GitTea Route: oc get route gitea -n scm -o jsonpath='{.spec.host}{"\n"}'
+## GitTea Admin
 
-Application Dev Route: oc get route welcome-app -n welcome-dev -o jsonpath='{.spec.host}{"\n"}'
-Application Prod Route: oc get route welcome-app -n welcome-prod -o jsonpath='{.spec.host}{"\n"}'
+In case you need it, the GitTea Admin credentials:
 
-
-
+* giteaAdminUser: `gitea-admin`
+* giteaAdminPassword: `openshift`

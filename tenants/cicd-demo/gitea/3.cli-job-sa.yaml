@@ -3,5 +3,5 @@ kind: ServiceAccount
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "3"
-  name: cli-job-sa
+  name: gitea-cli-job-sa
   namespace: scm

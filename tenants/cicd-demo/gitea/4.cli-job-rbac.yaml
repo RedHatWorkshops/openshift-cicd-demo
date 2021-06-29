@@ -3,7 +3,7 @@ kind: ClusterRole
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "4"
-  name: cli-job-sa-role
+  name: gitea-cli-job-sa-role
 rules:
   - apiGroups:
       - gpte.opentlc.com
@@ -20,12 +20,12 @@ kind: ClusterRoleBinding
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "4"
-  name: cli-job-sa-rolebinding
+  name: gitea-cli-job-sa-rolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: cli-job-sa-role
+  name: gitea-cli-job-sa-role
 subjects:
   - kind: ServiceAccount
-    name: cli-job-sa
-    namespace: openshift-logging
+    name: gitea-cli-job-sa
+    namespace: scm

@@ -9,10 +9,12 @@ rules:
       - batch
       - tekton.dev
       - apiextensions.k8s.io
+      - gpte.opentlc.com
     resources:
       - jobs
       - customresourcedefinitions
       - pipelines
+      - giteas
     verbs:
       - get
       - list

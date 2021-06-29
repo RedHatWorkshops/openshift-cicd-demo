@@ -31,6 +31,6 @@ spec:
             value: "5"
       dnsPolicy: ClusterFirst
       restartPolicy: OnFailure
-      serviceAccount: cli-job-sa
-      serviceAccountName: cli-job-sa
+      serviceAccount: gitea-cli-job-sa
+      serviceAccountName: gitea-cli-job-sa
       terminationGracePeriodSeconds: 90

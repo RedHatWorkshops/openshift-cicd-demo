@@ -45,7 +45,7 @@ Once you have a cluster ready, login as `cluster-admin` and run the following:
 kubectl apply -k https://github.com/RedHatWorkshops/openshift-cicd-demo/bootstrap/overlays/base.cluster/
 ```
 
-If you have issues, please see the [troubleshooting section](#troubeshooting)
+If you have issues, please see the [troubleshooting section](#troubleshooting)
 
 # Demo Installation
 

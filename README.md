@@ -1,6 +1,8 @@
 # OpenShift CICD Demo
 
-> :warning: Although in working order, this should be considered more of a "POC" for the time being.
+> :warning: Although in working order, this should be
+> considered more of a "POC" for the time being. You can [watch the video](http://www.youtube.com/watch?v=LLYNn0kieOg)
+> if you're just looking for a quickstart.
 
 This is a "self contained" and "self bootstrapping" OpenShift CI/CD Demo,
 that uses OpenShift Pipelines (Tekton) in tandem with OpenShift GitOps

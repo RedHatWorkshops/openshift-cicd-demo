@@ -131,9 +131,9 @@ watch this video:
 [![Running the Demo Video](http://img.youtube.com/vi/LLYNn0kieOg/0.jpg)](http://www.youtube.com/watch?v=LLYNn0kieOg)
 
 
-# Troubeshooting
+# Troubleshooting
 
-Common issues that may arise are in this section in no paticular order.
+Common issues that may arise are in this section in no particular order.
 
 ## Installation
 

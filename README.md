@@ -34,15 +34,23 @@ The OpenShift GitOps system will then install the following:
 
 To deploy this demo, you need to have the following
 
-1. A "bare" OpenShift 4.7 cluster installed
+1. An "empty" OpenShift 4.7 cluster installed
 2. Cluster Admin access to the cluster
 3. `oc` and `kubectl` CLI installed.
 4. Not required; but `kustomize` is useful (for debugging)
 
-Once you have a cluster ready, login as `cluster-admin` and run the following:
+Once you have a cluster ready, login as `cluster-admin` and add the
+following helm repo (and update the defs):
 
 ```shell
-kubectl apply -k https://github.com/RedHatWorkshops/openshift-cicd-demo/bootstrap/overlays/base.cluster/
+helm repo add redhat-demos https://redhat-developer-demos.github.io/helm-repo
+helm repo update
+```
+
+Install deploy this repo with the following command
+
+```shell
+helm install ocpcicd redhat-demos/openshift-cicd-demo
 ```
 
 If you have issues, please see the [troubleshooting section](#troubleshooting)
@@ -137,8 +145,10 @@ Common issues that may arise are in this section in no particular order.
 
 ## Installation
 
-You're probably always going to end up here since the install won't work
-"first shot". Best way to install is to run the following:
+If you don't want to use the helm chart, you can deploy this repo directly
+by running the following:
+
+> **NOTE** If using OCP 4.7, you __HAVE__ to use `kubectl`
 
 ```shell
 until kubectl apply -k https://github.com/RedHatWorkshops/openshift-cicd-demo/bootstrap/overlays/base.cluster/
@@ -146,6 +156,8 @@ do
   sleep 5
 done
 ```
+
+For more information about the helm repo, visit the [chart repo](https://github.com/redhat-developer-demos/helm-repo/tree/main/stable/openshift-cicd-demo)
 
 ## OpenShift GitOps
 

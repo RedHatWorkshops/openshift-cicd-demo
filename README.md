@@ -36,7 +36,7 @@ To deploy this demo, you need to have the following
 
 1. An "empty" OpenShift 4.7 cluster installed
 2. Cluster Admin access to the cluster
-3. `oc` and `kubectl` CLI installed.
+3. `oc`, `kubectl`, and `helm` CLI installed.
 4. Not required; but `kustomize` is useful (for debugging)
 
 Once you have a cluster ready, login as `cluster-admin` and add the

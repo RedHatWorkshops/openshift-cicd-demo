@@ -7,6 +7,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "6"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
+  giteaImageTag: 1.14.2
   giteaAdminEmail: opentlc-mgr@redhat.com
   giteaAdminPassword: openshift
   giteaAdminUser: gitea-admin

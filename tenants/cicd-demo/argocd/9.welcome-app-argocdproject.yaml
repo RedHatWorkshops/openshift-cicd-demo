@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: welcome-app
+  namespace: welcome-gitops
+  annotations:
+    argocd.argoproj.io/sync-wave: "7"
+spec:
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  destinations:
+  - namespace: '*'
+    server: '*'
+  sourceRepos:
+  - '*'
+  roles:
+  - name: developer
+    description: Developer get full access to welcome-app
+    policies:
+    - p, role:developer, applications, *, welcome-app/*, allow
+    - p, role:developer, projects, get, welcome-app, allow
+  sourceRepos:
+  - '*'

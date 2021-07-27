@@ -6,7 +6,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "9"
 spec:
-  project: default
+  project: welcome-app
   source:
     path: app/overlays/dev/
     repoURL: http://gitea.scm.svc.cluster.local:3000/developer/welcome-deploy

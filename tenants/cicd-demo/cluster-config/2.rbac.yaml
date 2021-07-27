@@ -66,4 +66,13 @@ subjects:
 - apiGroup: rbac.authorization.k8s.io
   kind: User
   name: developer
+---
+apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: developer
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+users:
+- developer
 ...

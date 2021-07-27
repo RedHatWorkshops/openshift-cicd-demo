@@ -9,3 +9,7 @@ spec:
   name: openshift-gitops-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
+  config:
+    env:
+    - name: DISABLE_DEX
+      value: "false"

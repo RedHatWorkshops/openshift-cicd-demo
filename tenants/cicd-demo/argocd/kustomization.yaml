@@ -11,3 +11,4 @@ resources:
 - 6.tekton-rollout-job.yaml
 - 7.image-puller-rbac.yaml
 - 8.welcome-prepull-job.yaml
+- 9.welcome-app-argocdproject.yaml

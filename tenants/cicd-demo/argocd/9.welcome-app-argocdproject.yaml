@@ -20,5 +20,3 @@ spec:
     policies:
     - p, role:developer, applications, *, welcome-app/*, allow
     - p, role:developer, projects, get, welcome-app, allow
-  sourceRepos:
-  - '*'

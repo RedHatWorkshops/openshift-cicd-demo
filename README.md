@@ -18,6 +18,7 @@ Once deployed, you will have the following:
 The OpenShift GitOps system will then install the following:
 
 * "Tenant" Argo CD instance under the `welcome-gitops` namespace
+  * This is using OpenShift oAuth
 * A GitTea instances to house all the manifests
   * It also imports all the needed repos
 * Sample `welcome-app` application in the following namespaces
@@ -81,11 +82,10 @@ namespace. To reach the Web UI:
 oc get route welcome-argocd-server -n welcome-gitops -o jsonpath='{.spec.host}{"\n"}'
 ```
 
-The password for the tenant Argo CD instance can be extracted by:
+Click on "LOGIN WITH OPENSHIFT". And login with the following credentials.
 
-```shell
-oc extract secret/welcome-argocd-cluster -n welcome-gitops --to=-
-```
+* username: `developer`
+* password: `openshift`
 
 ## GitTea
 

@@ -50,7 +50,7 @@ helm repo update
 
 Install deploy this repo with the following command
 
-> :warning: RHPDS users, please see the [troubleshooting section](##rhpds-clusters) before installing.
+> :warning: RHPDS users, please see the [troubleshooting section](#rhpds-clusters) before installing.
 
 ```shell
 helm install ocpcicd redhat-demos/openshift-cicd-demo

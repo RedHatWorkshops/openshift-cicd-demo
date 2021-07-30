@@ -2,7 +2,6 @@ bases:
 - ../../../components/applications
 resources:
 - 0.ns.yaml
-- 1.secret.yaml
 - 2.argocd.yaml
 - 3.rbac.yaml
 - 4.gt-rollout-rbac.yaml

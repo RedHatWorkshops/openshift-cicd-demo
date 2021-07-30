@@ -3,6 +3,8 @@ kind: Namespace
 metadata:
   creationTimestamp: null
   name: welcome-dev
+  labels:
+    argocd.argoproj.io/managed-by: welcome-gitops
   annotations:
     argocd.argoproj.io/sync-wave: "0"
 spec: {}

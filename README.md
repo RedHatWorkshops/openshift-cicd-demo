@@ -50,7 +50,7 @@ helm repo update
 
 Install deploy this repo with the following command
 
-> :warning: RHPDS users, please see the [troubleshooting section](#rhpds-clusters) before installing.
+> :rotating_light: RHPDS users, this helm chart WILL NOT WORK. Sorry.
 
 ```shell
 helm install ocpcicd redhat-demos/openshift-cicd-demo
@@ -158,36 +158,6 @@ done
 ```
 
 For more information about the helm repo, visit the [chart repo](https://github.com/redhat-developer-demos/helm-repo/tree/main/stable/openshift-cicd-demo)
-
-## RHPDS Clusters
-
-Part of this demo replaces the oAuth inside of OpenShift. This isn't normally a problem on "new" clusters, however, RHPDS clusters are setup with some configuration (hence not technically "new"). Part of this configuration is setting up the `opentlc-mgr` account as an admin.
-
-The helm chart deletes this account. Create a backup admin account in case you need it for the demo.
-
-First create a service account.
-
-```shell
-oc create sa backupadmin -n default
-```
-
-Add the `cluster-admin` role to this service account
-
-```shell
-oc adm policy add-cluster-role-to-user cluster-admin -z backupadmin -n default
-```
-
-Get the login token for this account.
-
-```shell
-oc serviceaccounts get-token backupadmin -n default
-```
-
-:exclamation: **SAVE THIS TOKEN** This what you will use to login to the cluster once the `opentlc-mgr` account is gone.
-
-```shell
-oc login --token=<token> <api address>
-```
 
 
 ## OpenShift GitOps

@@ -31,11 +31,11 @@ The OpenShift GitOps system will then install the following:
 
 # Installation
 
-> :warning: I've tested this on OCP 4.7
+> :warning: I've tested this on OCP 4.8.2
 
 To deploy this demo, you need to have the following
 
-1. An "empty" OpenShift 4.7 cluster installed
+1. An "empty" OpenShift 4.8 cluster installed
 2. Cluster Admin access to the cluster
 3. `oc`, `kubectl`, and `helm` CLI installed.
 4. Not required; but `kustomize` is useful (for debugging)
@@ -49,6 +49,8 @@ helm repo update
 ```
 
 Install deploy this repo with the following command
+
+> :warning: RHPDS users, please see the [troubleshooting section](##rhpds-clusters) before installing.
 
 ```shell
 helm install ocpcicd redhat-demos/openshift-cicd-demo
@@ -148,8 +150,6 @@ Common issues that may arise are in this section in no particular order.
 If you don't want to use the helm chart, you can deploy this repo directly
 by running the following:
 
-> **NOTE** If using OCP 4.7, you __HAVE__ to use `kubectl`
-
 ```shell
 until kubectl apply -k https://github.com/RedHatWorkshops/openshift-cicd-demo/bootstrap/overlays/base.cluster/
 do
@@ -158,6 +158,37 @@ done
 ```
 
 For more information about the helm repo, visit the [chart repo](https://github.com/redhat-developer-demos/helm-repo/tree/main/stable/openshift-cicd-demo)
+
+## RHPDS Clusters
+
+Part of this demo replaces the oAuth inside of OpenShift. This isn't normally a problem on "new" clusters, however, RHPDS clusters are setup with some configuration (hence not technically "new"). Part of this configuration is setting up the `opentlc-mgr` account as an admin.
+
+The helm chart deletes this account. Create a backup admin account in case you need it for the demo.
+
+First create a service account.
+
+```shell
+oc create sa backupadmin -n default
+```
+
+Add the `cluster-admin` role to this service account
+
+```shell
+oc adm policy add-cluster-role-to-user cluster-admin -z backupadmin -n default
+```
+
+Get the login token for this account.
+
+```shell
+oc serviceaccounts get-token backupadmin -n default
+```
+
+:exclamation: **SAVE THIS TOKEN** This what you will use to login to the cluster once the `opentlc-mgr` account is gone.
+
+```shell
+oc login --token=<token> <api address>
+```
+
 
 ## OpenShift GitOps
 

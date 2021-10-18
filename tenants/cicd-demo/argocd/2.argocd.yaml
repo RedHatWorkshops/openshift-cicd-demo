@@ -6,6 +6,8 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
+  dex:
+    openShiftOAuth: true
   rbac:
     defaultPolicy: ''
     policy: |

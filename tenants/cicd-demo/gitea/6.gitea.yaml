@@ -7,10 +7,25 @@ metadata:
     argocd.argoproj.io/sync-wave: "6"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
-  giteaImageTag: 1.14.3
+  #giteaImageTag: 1.14.3
+  giteaImageTag: 1.15.10
   giteaAdminEmail: opentlc-mgr@redhat.com
   giteaAdminPassword: openshift
   giteaAdminUser: gitea-admin
   giteaSsl: true
   giteaVolumeSize: 4Gi
   postgresqlVolumeSize: 4Gi
+  # Create user
+  giteaCreateUsers: true
+  giteaGenerateUserFormat: developer
+  giteaUserNumber: 1
+  giteaUserPassword: openshift
+  # Migrate repos
+  giteaMigrateRepositories: true
+  giteaRepositoriesList:
+  - repo: https://github.com/RedHatWorkshops/welcome-app
+    name: welcome-app
+    private: false
+  - repo: https://github.com/RedHatWorkshops/welcome-deploy
+    name: welcome-deploy
+    private: false
